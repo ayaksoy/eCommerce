@@ -6,7 +6,7 @@ using eCommerce.Data;
 using eCommerce.Dto;
 using eCommerce.Model;
 
-namespace eCommerce.Service.Model
+namespace eCommerce.Service
 {
     public class ProductService
     {

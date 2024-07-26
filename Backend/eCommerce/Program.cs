@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using eCommerce.Model;
 using eCommerce.Data;
 using eCommerce.Service.Model;
-using eCommerce.Service.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +11,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IOrderService, OrderService>();
-builder.Services.AddTransient<IOrderItemService, OrderItemService>();
+builder.Services.AddTransient<OrderService>();
+builder.Services.AddTransient<OrderItemService>();
 builder.Services.AddTransient<ProductService>();
+builder.Services.AddTransient<CategoryService>();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
 
 // Register controllers
 builder.Services.AddControllers();

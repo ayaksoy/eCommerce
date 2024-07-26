@@ -11,7 +11,7 @@ using System.Linq;
 using eCommerce.Data;
 using eCommerce.Model;
 using Microsoft.EntityFrameworkCore;
-using eCommerce.Service.Model;
+using eCommerce.Service;
 using eCommerce.Dto;
 
 namespace eCommerce.Controller

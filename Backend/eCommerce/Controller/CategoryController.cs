@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using eCommerce.Data;
 using eCommerce.Dto;
 using eCommerce.Model;
-using eCommerce.Service.Model;
+using eCommerce.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

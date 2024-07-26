@@ -1,5 +1,7 @@
+using eCommerce.Dto;
 using eCommerce.Model;
-using eCommerce.Service.Interface;
+using eCommerce.Service;
+using eCommerce.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,9 +12,9 @@ namespace eCommerce.Controller
     [Route("api/[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderService service;
+        private readonly OrderService service;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(OrderService orderService)
         {
             service = orderService;
         }
@@ -38,7 +40,7 @@ namespace eCommerce.Controller
         }
 
         [HttpPost]
-        public async Task<ActionResult<Order>> PostOrder(Order order)
+        public async Task<ActionResult<Order>> PostOrder(OrderDto order)
         {
             var createdOrder = await service.CreateOrderAsync(order);
             return CreatedAtAction(nameof(GetOrder), new { id = createdOrder.Id }, createdOrder);

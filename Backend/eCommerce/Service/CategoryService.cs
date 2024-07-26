@@ -6,8 +6,9 @@ using eCommerce.Data;
 using eCommerce.Dto;
 using eCommerce.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace eCommerce.Service.Model
+namespace eCommerce.Service
 {
     public class CategoryService
     {
@@ -18,11 +19,11 @@ namespace eCommerce.Service.Model
         }
         public List<Category> GetAllCategories()
         {
-            return db.Categories.ToList();
+            return db.Categories.Include(c => c.Products).ToList();
         }
         public Category GetCategoryById(int id)
         {
-            var category = db.Categories.Find(id);
+            var category = db.Categories.Include(c => c.Products).FirstOrDefault(c => c.Id == id);
             if (category == null)
             {
                 throw new Exception("Category not found");

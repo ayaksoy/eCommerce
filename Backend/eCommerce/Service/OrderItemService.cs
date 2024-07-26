@@ -6,12 +6,12 @@ using eCommerce.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using eCommerce.Service.Interface;
 using eCommerce.Data;
-namespace eCommerce.Service.Model
+using eCommerce.Dto;
+namespace eCommerce.Service
 {
 
-    public class OrderItemService : IOrderItemService
+    public class OrderItemService
     {
         private readonly ApplicationDbContext db;
 
@@ -30,16 +30,28 @@ namespace eCommerce.Service.Model
             return await db.OrderItems.FirstOrDefaultAsync(oi => oi.Id == id);
         }
 
-        public async Task<OrderItem> CreateOrderItemAsync(OrderItem orderItem)
+
+        public async Task<OrderItem> CreateOrderItemAsync(OrderItemDto orderItem)
         {
-            db.OrderItems.Add(orderItem);
+            var price = db.Products.Find(orderItem.ProductId).Price;
+            var newOrderItem = new OrderItem
+            {
+                OrderId = orderItem.OrderId,
+                ProductId = orderItem.ProductId,
+                Quantity = orderItem.Quantity,
+                UnitPrice = orderItem.Quantity * price
+            };
+
+            db.OrderItems.Add(newOrderItem);
             await db.SaveChangesAsync();
-            return orderItem;
+
+            return newOrderItem;
         }
 
-        public async Task<OrderItem> UpdateOrderItemAsync(int id, OrderItem orderItem)
+        public async Task<OrderItem> UpdateOrderItemAsync(int id, OrderItemDto orderItem)
         {
             var existingOrderItem = await db.OrderItems.FindAsync(id);
+            var price = db.Products.Find(orderItem.ProductId).Price;
             if (existingOrderItem == null)
             {
                 return null;
@@ -48,8 +60,7 @@ namespace eCommerce.Service.Model
             existingOrderItem.OrderId = orderItem.OrderId;
             existingOrderItem.ProductId = orderItem.ProductId;
             existingOrderItem.Quantity = orderItem.Quantity;
-            existingOrderItem.UnitPrice = orderItem.UnitPrice;
-
+            existingOrderItem.UnitPrice = orderItem.Quantity * price;
             db.Entry(existingOrderItem).State = EntityState.Modified;
             await db.SaveChangesAsync();
 

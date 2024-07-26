@@ -7,12 +7,12 @@ using eCommerce.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using eCommerce.Service.Interface;
 using eCommerce.Data;
-namespace eCommerce.Service.Model
+using eCommerce.Dto;
+namespace eCommerce.Service
 {
 
-    public class OrderService : IOrderService
+    public class OrderService
     {
         private readonly ApplicationDbContext db;
 
@@ -31,11 +31,19 @@ namespace eCommerce.Service.Model
             return await db.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
         }
 
-        public async Task<Order> CreateOrderAsync(Order order)
+        public async Task<Order> CreateOrderAsync(OrderDto order)
         {
-            db.Orders.Add(order);
+            var newOrder = new Order
+            {
+                CustomerFullName = order.CustomerFullName,
+                Address = order.Address,
+                PhoneNumber = order.PhoneNumber,
+                Status = order.Status,
+                OrderDate = DateTime.Now,
+                TotalAmount = order.OrderItems.Sum(oi => oi.UnitPrice)
+            };
             await db.SaveChangesAsync();
-            return order;
+            return newOrder;
         }
 
         public async Task<Order> UpdateOrderAsync(int id, Order order)

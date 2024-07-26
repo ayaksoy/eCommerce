@@ -1,5 +1,6 @@
+using eCommerce.Dto;
 using eCommerce.Model;
-using eCommerce.Service.Interface;
+using eCommerce.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ namespace eCommerce.Controller
     [Route("api/[controller]")]
     public class OrderItemController : ControllerBase
     {
-        private readonly IOrderItemService service;
+        private readonly OrderItemService service;
 
-        public OrderItemController(IOrderItemService orderItemService)
+        public OrderItemController(OrderItemService orderItemService)
         {
             service = orderItemService;
         }
@@ -38,19 +39,16 @@ namespace eCommerce.Controller
         }
 
         [HttpPost]
-        public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItem orderItem)
+        public async Task<ActionResult<OrderItem>> PostOrderItem(OrderItemDto orderItem)
         {
             var createdOrderItem = await service.CreateOrderItemAsync(orderItem);
             return CreatedAtAction(nameof(GetOrderItem), new { id = createdOrderItem.Id }, createdOrderItem);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrderItem(int id, OrderItem orderItem)
+        public async Task<IActionResult> PutOrderItem(int id, OrderItemDto orderItem)
         {
-            if (id != orderItem.Id)
-            {
-                return BadRequest();
-            }
+            //order itemda id yok
 
             var updatedOrderItem = await service.UpdateOrderItemAsync(id, orderItem);
 

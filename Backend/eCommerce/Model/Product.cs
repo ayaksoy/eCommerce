@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace eCommerce.Model
@@ -14,6 +15,7 @@ namespace eCommerce.Model
         public int Stock { get; set; }
         public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }
+        [JsonIgnore]
         public Category? Category { get; set; }
     }
 }
