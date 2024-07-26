@@ -5,6 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using eCommerce.Data;
+using eCommerce.Model;
+using Microsoft.EntityFrameworkCore;
+using eCommerce.Service.Model;
+using eCommerce.Dto;
+
 namespace eCommerce.Controller
 {
 
@@ -12,23 +21,22 @@ namespace eCommerce.Controller
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly ApplicationDbContext db;
+        private readonly ProductService service;
 
-        public ProductController(ApplicationDbContext context)
+        public ProductController(ProductService service)
         {
-            db = context;
+            this.service = service;
         }
-
         [HttpGet]
         public ActionResult<IEnumerable<Product>> GetProducts()
         {
-            return db.Products.ToList();
+            return service.GetAllProducts();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Product> GetProduct(int id)
         {
-            var product = db.Products.Find(id);
+            var product = service.GetProductById(id);
 
             if (product == null)
             {
@@ -39,24 +47,23 @@ namespace eCommerce.Controller
         }
 
         [HttpPost]
-        public ActionResult<Product> PostProduct(Product product)
+        public ActionResult<Product> PostProduct(ProductDto newProduct)
         {
-            db.Products.Add(product);
-            db.SaveChanges();
-
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            service.AddProduct(newProduct);
+            return CreatedAtAction(nameof(GetProduct), new { id = newProduct.Id }, newProduct);
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutProduct(int id, Product product)
+        public IActionResult PutProduct(int id, ProductDto newProduct)
         {
-            if (id != product.Id)
+            try
             {
-                return BadRequest();
+                service.UpdateProductById(id, newProduct);
             }
-
-            db.Entry(product).State = EntityState.Modified;
-            db.SaveChanges();
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
 
             return NoContent();
         }
@@ -64,17 +71,17 @@ namespace eCommerce.Controller
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
-            var product = db.Products.Find(id);
-
-            if (product == null)
+            try
             {
-                return NotFound();
+                service.DeleteOneProductById(id);
             }
-
-            db.Products.Remove(product);
-            db.SaveChanges();
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
 
             return NoContent();
         }
     }
+
 }

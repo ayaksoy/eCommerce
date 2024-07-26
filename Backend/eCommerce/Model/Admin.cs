@@ -7,11 +7,11 @@ namespace eCommerce.Model
 {
     public class Admin
     {
-        int Id { get; set; }
-        string Username { get; set; }
-        string Password { get; set; }
-        string Email { get; set; }
-        string Name { get; set; }
-        string Surname { get; set; }
+        public int Id { get; set; }
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+        public string? Email { get; set; }
+        public string? Name { get; set; }
+        public string? Surname { get; set; }
     }
 }

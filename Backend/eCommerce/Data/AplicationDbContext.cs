@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using eCommerce.Model;
 
 namespace eCommerce.Data
 {
@@ -17,10 +18,9 @@ namespace eCommerce.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // Constructor that accepts DbContextOptions
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            // Veritabanı bağlantı stringinizi buraya ekleyin
-            optionsBuilder.UseSqlServer("YourConnectionStringHere");
         }
     }
 }
