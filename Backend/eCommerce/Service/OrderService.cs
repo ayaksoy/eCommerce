@@ -40,8 +40,9 @@ namespace eCommerce.Service
                 PhoneNumber = order.PhoneNumber,
                 Status = order.Status,
                 OrderDate = DateTime.Now,
-                TotalAmount = order.OrderItems.Sum(oi => oi.UnitPrice)
+                TotalAmount = 0
             };
+            db.Orders.Add(newOrder);
             await db.SaveChangesAsync();
             return newOrder;
         }
@@ -60,6 +61,7 @@ namespace eCommerce.Service
             existingOrder.TotalAmount = order.TotalAmount;
             existingOrder.Address = order.Address;
             existingOrder.PhoneNumber = order.PhoneNumber;
+
 
             db.Entry(existingOrder).State = EntityState.Modified;
             await db.SaveChangesAsync();

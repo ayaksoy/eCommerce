@@ -47,10 +47,9 @@ namespace eCommerce.Controller
         }
 
         [HttpPost]
-        public ActionResult<Product> PostProduct(ProductDto newProduct)
+        public void PostProduct(ProductDto newProduct)
         {
             service.AddProduct(newProduct);
-            return CreatedAtAction(nameof(GetProduct), new { id = newProduct.Id }, newProduct);
         }
 
         [HttpPut("{id}")]

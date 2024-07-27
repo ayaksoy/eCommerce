@@ -35,7 +35,8 @@ namespace eCommerce.Service
             var category = new Category
             {
                 Name = newCategory.Name,
-                Description = newCategory.Description
+                Description = newCategory.Description,
+                ImageUrl = newCategory.ImageUrl
             };
             db.Categories.Add(category);
             db.SaveChanges();
@@ -50,6 +51,7 @@ namespace eCommerce.Service
             }
             categoryToUpdate.Name = category.Name;
             categoryToUpdate.Description = category.Description;
+            categoryToUpdate.ImageUrl = category.ImageUrl;
             db.SaveChanges();
             return new NoContentResult();
         }
