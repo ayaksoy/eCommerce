@@ -33,6 +33,7 @@ namespace eCommerce.Service
 
         public async Task<Order> CreateOrderAsync(OrderDto order)
         {
+            double TotalAmount = order.OrderItems.Sum(oi => oi.UnitPrice);
             var newOrder = new Order
             {
                 CustomerFullName = order.CustomerFullName,
@@ -40,7 +41,7 @@ namespace eCommerce.Service
                 PhoneNumber = order.PhoneNumber,
                 Status = order.Status,
                 OrderDate = DateTime.Now,
-                TotalAmount = 0
+                TotalAmount = TotalAmount
             };
             db.Orders.Add(newOrder);
             await db.SaveChangesAsync();
