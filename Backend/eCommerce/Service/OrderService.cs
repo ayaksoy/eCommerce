@@ -9,9 +9,9 @@ namespace eCommerce.Service
     {
         private readonly ApplicationDbContext db;
 
-        public OrderService(ApplicationDbContext context)
+        public OrderService(ApplicationDbContext db)
         {
-            db = context;
+            this.db = db;
         }
 
         public async Task<IEnumerable<Order>> GetOrdersAsync()
@@ -21,12 +21,11 @@ namespace eCommerce.Service
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-            return await db.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
+            return await db.Orders.FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public async Task<Order> CreateOrderAsync(OrderDto order)
         {
-            double TotalAmount = order.OrderItems.Sum(oi => oi.UnitPrice);
             var newOrder = new Order
             {
                 CustomerFullName = order.CustomerFullName,
@@ -34,7 +33,7 @@ namespace eCommerce.Service
                 PhoneNumber = order.PhoneNumber,
                 Status = order.Status,
                 OrderDate = DateTime.Now,
-                TotalAmount = TotalAmount
+                TotalAmount = 0
             };
             db.Orders.Add(newOrder);
             await db.SaveChangesAsync();
