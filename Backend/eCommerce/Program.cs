@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using eCommerce.Model;
 using eCommerce.Data;
 using eCommerce.Service;
 
@@ -24,6 +23,17 @@ builder.Services.AddControllers()
 // Register controllers
 builder.Services.AddControllers();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,7 +50,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-// Map controllers
+// Use CORS policy
+app.UseCors();
+
 app.MapControllers();
 
 app.Run();
