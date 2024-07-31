@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createProduct, fetchProducts } from "../features/productSlice";
+import { fetchCategories } from "../features/categorySlice";
 
 const AddProduct = () => {
 	const [name, setName] = useState("");
@@ -13,6 +14,17 @@ const AddProduct = () => {
 	const [categoryId, setCategoryId] = useState("");
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	// Kategorileri ve durumlarını al
+	const categories = useSelector((state) => state.category.categories);
+	const categoriesStatus = useSelector((state) => state.category.status);
+	const error = useSelector((state) => state.category.error);
+
+	useEffect(() => {
+		if (categoriesStatus === "idle") {
+			dispatch(fetchCategories());
+		}
+	}, [categoriesStatus, dispatch]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -35,6 +47,14 @@ const AddProduct = () => {
 			console.error("Ürün eklenirken bir hata oluştu:", error);
 		}
 	};
+
+	if (categoriesStatus === "loading") {
+		return <div>Yükleniyor...</div>;
+	}
+
+	if (categoriesStatus === "failed") {
+		return <div>Hata: {error}</div>;
+	}
 
 	return (
 		<Container>
@@ -96,15 +116,22 @@ const AddProduct = () => {
 					/>
 				</FormGroup>
 				<FormGroup>
-					<Label for="categoryId">Kategori ID</Label>
+					<Label for="categoryId">Kategori</Label>
 					<Input
-						type="number"
+						type="select"
 						name="categoryId"
 						id="categoryId"
 						value={categoryId}
 						onChange={(e) => setCategoryId(e.target.value)}
 						required
-					/>
+					>
+						<option value="">Kategori Seçin</option>
+						{categories.map((category) => (
+							<option key={category.id} value={category.id}>
+								{category.name}
+							</option>
+						))}
+					</Input>
 				</FormGroup>
 				<Button type="submit" color="primary">
 					Ekle

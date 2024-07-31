@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AdminNavbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
-import CategoryList from "./components/CategoryList";
-import AddProduct from "./components/AddProduct";
-import AddCategory from "./components/AddCategory";
-import ProductEdit from "./components/ProductEdit";
-import CategoryEdit from "./components/CategoryEdit";
+import ProductList from "./pages/ProductList";
+import CategoryList from "./pages/CategoryList";
+import AddProduct from "./pages/AddProduct";
+import AddCategory from "./pages/AddCategory";
+import ProductEdit from "./pages/ProductEdit";
+import CategoryEdit from "./pages/CategoryEdit";
 import Aside from "./components/Aside";
 
 const App = () => {

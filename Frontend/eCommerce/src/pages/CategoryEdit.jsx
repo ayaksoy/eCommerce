@@ -11,18 +11,23 @@ const CategoryEdit = () => {
 	const category = useSelector((state) =>
 		state.category.categories.find((category) => category.id === parseInt(id))
 	);
+	const categories = useSelector((state) => state.category.categories);
 
 	const [formData, setFormData] = useState({
 		name: "",
 		description: "",
 		imageUrl: "",
+		categoryId: "", // Yeni eklenen kategori ID'si
 	});
 
 	useEffect(() => {
 		if (!category) {
 			dispatch(fetchCategories());
 		} else {
-			setFormData(category);
+			setFormData({
+				...category,
+				categoryId: category.id, // Seçilen kategori ID'sini form verisine ekleyin
+			});
 		}
 	}, [category, dispatch]);
 
@@ -75,6 +80,23 @@ const CategoryEdit = () => {
 						value={formData.imageUrl}
 						onChange={handleChange}
 					/>
+				</FormGroup>
+				<FormGroup>
+					<Label for="categoryId">Kategori</Label>
+					<Input
+						type="select"
+						name="categoryId"
+						id="categoryId"
+						value={formData.categoryId}
+						onChange={handleChange}
+					>
+						<option value="">Kategori Seçin</option>
+						{categories.map((category) => (
+							<option key={category.id} value={category.id}>
+								{category.name}
+							</option>
+						))}
+					</Input>
 				</FormGroup>
 				<Button type="submit" color="primary">
 					Kaydet
