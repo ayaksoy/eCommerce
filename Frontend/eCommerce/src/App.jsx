@@ -6,6 +6,7 @@ import CategoryList from "./components/CategoryList";
 import AddProduct from "./components/AddProduct";
 import AddCategory from "./components/AddCategory";
 import ProductEdit from "./components/ProductEdit";
+import CategoryEdit from "./components/CategoryEdit";
 import Aside from "./components/Aside";
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
 							<Route path="/add-product" element={<AddProduct />} />
 							<Route path="/add-category" element={<AddCategory />} />
 							<Route path="/edit-product/:id" element={<ProductEdit />} />
+							<Route path="/edit-category/:id" element={<CategoryEdit />} />
 						</Routes>
 					</div>
 				</div>

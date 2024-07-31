@@ -1,8 +1,8 @@
 import React from "react";
-import { Table, Button } from "reactstrap";
+import { Table, Button, Col } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchProducts } from "../features/productSlice";
+import { fetchProducts, deleteProduct } from "../features/productSlice";
 import { useNavigate } from "react-router-dom";
 
 const ProductList = () => {
@@ -18,6 +18,12 @@ const ProductList = () => {
 		}
 	}, [productStatus, dispatch]);
 
+	const handleDelete = (id) => {
+		if (window.confirm("Bu ürünü silmek istediğinizden emin misiniz?")) {
+			dispatch(deleteProduct(id));
+		}
+	};
+
 	if (productStatus === "loading") {
 		return <div>Yükleniyor...</div>;
 	}
@@ -29,10 +35,12 @@ const ProductList = () => {
 	return (
 		<div>
 			<h2>Ürün Listesi</h2>
+			<Button onClick={() => navigate("/add-product")}>Ürün Ekle</Button>
 			<Table>
 				<thead>
 					<tr>
 						<th>ID</th>
+						<th>Resim</th>
 						<th>İsim</th>
 						<th>Açıklama</th>
 						<th>Stok</th>
@@ -44,6 +52,9 @@ const ProductList = () => {
 					{products.map((product) => (
 						<tr key={product.id}>
 							<td>{product.id}</td>
+							<td>
+								<img src={product.imageUrl} alt={product.name} width="25px" />
+							</td>
 							<td>{product.name}</td>
 							<td>{product.description}</td>
 							<td>{product.stock}</td>
@@ -56,7 +67,9 @@ const ProductList = () => {
 								>
 									Düzenle
 								</Button>
-								<Button color="danger">Sil</Button>
+								<Button color="danger" onClick={() => handleDelete(product.id)}>
+									Sil
+								</Button>
 							</td>
 						</tr>
 					))}
