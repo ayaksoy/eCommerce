@@ -32,6 +32,12 @@ namespace eCommerce.Controller
         {
             return service.GetAllProducts();
         }
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsByCategoryId(int categoryId)
+        {
+            var products = await service.GetProductsByCategoryIdAsync(categoryId);
+            return Ok(products);
+        }
+
 
         [HttpGet("{id}")]
         public ActionResult<Product> GetProduct(int id)

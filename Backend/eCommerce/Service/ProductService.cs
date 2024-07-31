@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 using eCommerce.Data;
 using eCommerce.Dto;
 using eCommerce.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.Service
 {
-    public class ProductService
+    public class ProductService(ApplicationDbContext db)
     {
-        private readonly ApplicationDbContext db;
-        public ProductService(ApplicationDbContext db)
-        {
-            this.db = db;
-        }
+        private readonly ApplicationDbContext db = db;
+
         public List<Product> GetAllProducts()
         {
             return db.Products.ToList();
@@ -22,6 +20,10 @@ namespace eCommerce.Service
         public Product GetProductById(int id)
         {
             return db.Products.Find(id);
+        }
+        public async Task<IEnumerable<Product>> GetProductsByCategoryIdAsync(int categoryId)
+        {
+            return await db.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
         }
         public void AddProduct(ProductDto newProduct)
         {
@@ -39,11 +41,7 @@ namespace eCommerce.Service
         }
         public void UpdateProductById(int id, ProductDto product)
         {
-            var existingProduct = db.Products.Find(id);
-            if (existingProduct == null)
-            {
-                throw new Exception("Product not found");
-            }
+            var existingProduct = db.Products.Find(id) ?? throw new Exception("Product not found");
             existingProduct.Name = product.Name;
             existingProduct.Description = product.Description;
             existingProduct.Price = product.Price;
@@ -54,11 +52,7 @@ namespace eCommerce.Service
         }
         public void DeleteOneProductById(int id)
         {
-            var product = db.Products.Find(id);
-            if (product == null)
-            {
-                throw new Exception("Product not found");
-            }
+            var product = db.Products.Find(id) ?? throw new Exception("Product not found");
             db.Products.Remove(product);
             db.SaveChanges();
         }

@@ -23,7 +23,6 @@ namespace eCommerce.Service
         {
             return await db.Orders.FirstOrDefaultAsync(o => o.Id == id);
         }
-
         public async Task<Order> CreateOrderAsync(OrderDto order)
         {
             var newOrder = new Order

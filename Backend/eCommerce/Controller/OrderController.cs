@@ -25,6 +25,7 @@ namespace eCommerce.Controller
             var orders = await service.GetOrdersAsync();
             return Ok(orders);
         }
+        [HttpGet("category/{categoryId}/products")]
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
