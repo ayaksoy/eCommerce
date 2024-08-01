@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchProducts, updateProduct } from "../features/productSlice";
+import { fetchCategories } from "../features/categorySlice";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 const ProductEdit = () => {
@@ -11,6 +12,8 @@ const ProductEdit = () => {
 	const product = useSelector((state) =>
 		state.product.products.find((product) => product.id === parseInt(id))
 	);
+	const categories = useSelector((state) => state.category.categories);
+	const categoriesStatus = useSelector((state) => state.category.status);
 
 	const [formData, setFormData] = useState({
 		name: "",
@@ -28,6 +31,12 @@ const ProductEdit = () => {
 			setFormData(product);
 		}
 	}, [product, dispatch]);
+
+	useEffect(() => {
+		if (categoriesStatus === "idle") {
+			dispatch(fetchCategories());
+		}
+	}, [categoriesStatus, dispatch]);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -100,14 +109,21 @@ const ProductEdit = () => {
 					/>
 				</FormGroup>
 				<FormGroup>
-					<Label for="categoryId">Kategori ID</Label>
+					<Label for="categoryId">Kategori</Label>
 					<Input
-						type="number"
+						type="select"
 						name="categoryId"
 						id="categoryId"
 						value={formData.categoryId}
 						onChange={handleChange}
-					/>
+					>
+						<option value="">Kategori Seçiniz</option>
+						{categories.map((category) => (
+							<option key={category.id} value={category.id}>
+								{category.name}
+							</option>
+						))}
+					</Input>
 				</FormGroup>
 				<Button type="submit" color="primary">
 					Kaydet

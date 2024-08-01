@@ -1,4 +1,3 @@
-// src/components/CategoryList.jsx
 import React from "react";
 import { Table, Button } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -72,8 +71,17 @@ const CategoryList = () => {
 									<Button
 										color="danger"
 										onClick={() => handleDelete(category.id)}
+										style={{ marginRight: "10px" }}
 									>
 										Sil
+									</Button>
+									<Button
+										color="secondary"
+										onClick={() =>
+											navigate(`/products/category/${category.id}`)
+										}
+									>
+										Ürünler
 									</Button>
 								</td>
 							</tr>

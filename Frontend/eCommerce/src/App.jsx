@@ -7,6 +7,9 @@ import AddProduct from "./pages/AddProduct";
 import AddCategory from "./pages/AddCategory";
 import ProductEdit from "./pages/ProductEdit";
 import CategoryEdit from "./pages/CategoryEdit";
+import ProductListByCategory from "./pages/ProductListByCategory";
+import OrderList from "./pages/OrderList";
+import OrderEdit from "./pages/OrderEdit"; // Import OrderEdit
 import Aside from "./components/Aside";
 
 const App = () => {
@@ -24,6 +27,12 @@ const App = () => {
 							<Route path="/add-category" element={<AddCategory />} />
 							<Route path="/edit-product/:id" element={<ProductEdit />} />
 							<Route path="/edit-category/:id" element={<CategoryEdit />} />
+							<Route
+								path="/products/category/:id"
+								element={<ProductListByCategory />}
+							/>
+							<Route path="/orders" element={<OrderList />} />
+							<Route path="/edit-order/:id" element={<OrderEdit />} />
 						</Routes>
 					</div>
 				</div>
