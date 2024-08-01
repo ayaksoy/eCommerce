@@ -39,20 +39,14 @@ namespace eCommerce.Service
             return newOrder;
         }
 
-        public async Task<Order> UpdateOrderAsync(int id, Order order)
+        public async Task<Order> UpdateOrderAsync(int id, OrderUpdateRequest order)
         {
             var existingOrder = await db.Orders.FindAsync(id);
             if (existingOrder == null)
             {
                 return null;
             }
-
-            existingOrder.CustomerFullName = order.CustomerFullName;
-            existingOrder.OrderDate = order.OrderDate;
             existingOrder.Status = order.Status;
-            existingOrder.TotalAmount = order.TotalAmount;
-            existingOrder.Address = order.Address;
-            existingOrder.PhoneNumber = order.PhoneNumber;
 
 
             db.Entry(existingOrder).State = EntityState.Modified;

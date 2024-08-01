@@ -25,7 +25,6 @@ namespace eCommerce.Controller
             var orders = await service.GetOrdersAsync();
             return Ok(orders);
         }
-        [HttpGet("category/{categoryId}/products")]
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
@@ -48,12 +47,8 @@ namespace eCommerce.Controller
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrder(int id, Order order)
+        public async Task<IActionResult> PutOrder(int id, OrderUpdateRequest order)
         {
-            if (id != order.Id)
-            {
-                return BadRequest();
-            }
 
             var updatedOrder = await service.UpdateOrderAsync(id, order);
 
