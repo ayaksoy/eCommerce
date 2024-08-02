@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AdminNavbar from "./components/Navbar";
+import AdminNavbar from "./components/AdminNavbar";
 import ProductList from "./pages/ProductList";
 import CategoryList from "./pages/CategoryList";
 import AddProduct from "./pages/AddProduct";
@@ -11,7 +11,7 @@ import ProductListByCategory from "./pages/ProductListByCategory";
 import OrderList from "./pages/OrderList";
 import OrderEdit from "./pages/OrderEdit"; // Import OrderEdit
 import Dashboard from "./pages/Dashboard";
-import Aside from "./components/Aside";
+import Aside from "./components/AdminAside";
 
 const App = () => {
 	return (
