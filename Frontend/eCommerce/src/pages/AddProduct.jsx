@@ -42,7 +42,7 @@ const AddProduct = () => {
 			await dispatch(createProduct(newProduct)).unwrap();
 			// Ürünler güncellenmişse, ürün listesini yeniden çek
 			await dispatch(fetchProducts()).unwrap();
-			navigate("/products");
+			navigate("/admin/products");
 		} catch (error) {
 			console.error("Ürün eklenirken bir hata oluştu:", error);
 		}

@@ -53,6 +53,11 @@ namespace eCommerce.Controller
         {
             return service.DeleteCategory(id);
         }
+        [HttpGet("count")]
+        public int GetCategoryCount()
+        {
+            return service.GetCategoryCount();
+        }
     }
 
 }

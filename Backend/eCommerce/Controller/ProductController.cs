@@ -88,6 +88,11 @@ namespace eCommerce.Controller
 
             return NoContent();
         }
+        [HttpGet("count")]
+        public int GetProductCount()
+        {
+            return service.GetProductCount();
+        }
     }
 
 }

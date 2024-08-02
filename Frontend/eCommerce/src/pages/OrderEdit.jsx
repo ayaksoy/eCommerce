@@ -42,7 +42,7 @@ const OrderEdit = () => {
 			if (result.meta.requestStatus === "fulfilled") {
 				// Güncelleme başarılıysa siparişleri yeniden al ve yönlendir
 				dispatch(fetchOrders()).then(() => {
-					navigate("/orders");
+					navigate("/admin/orders");
 				});
 			} else {
 				// Hata durumunu burada ele alabilirsiniz

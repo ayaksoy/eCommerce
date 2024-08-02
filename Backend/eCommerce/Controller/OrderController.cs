@@ -72,5 +72,10 @@ namespace eCommerce.Controller
 
             return NoContent();
         }
+        [HttpGet("count")]
+        public int GetOrderCount()
+        {
+            return service.GetOrderCount();
+        }
     }
 }

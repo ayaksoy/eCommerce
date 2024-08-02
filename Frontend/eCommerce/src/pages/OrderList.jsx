@@ -62,7 +62,7 @@ const OrderList = () => {
                   <Button
                     color="success"
                     style={{ marginRight: "10px" }}
-                    onClick={() => navigate(`/edit-order/${order.id}`)}
+                    onClick={() => navigate(`/admin/edit-order/${order.id}`)}
                   >
                     Düzenle
                   </Button>

@@ -56,5 +56,10 @@ namespace eCommerce.Service
             db.Products.Remove(product);
             db.SaveChanges();
         }
+
+        public int GetProductCount()
+        {
+            return db.Products.Count();
+        }
     }
 }

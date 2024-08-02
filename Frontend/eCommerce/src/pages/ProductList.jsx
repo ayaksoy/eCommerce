@@ -35,7 +35,7 @@ const ProductList = () => {
 	return (
 		<div>
 			<h2>Ürün Listesi</h2>
-			<Button onClick={() => navigate("/add-product")}>Ürün Ekle</Button>
+			<Button onClick={() => navigate("/admin/add-product")}>Ürün Ekle</Button>
 			<Table>
 				<thead>
 					<tr>
@@ -63,7 +63,7 @@ const ProductList = () => {
 								<Button
 									color="success"
 									style={{ marginRight: "10px" }}
-									onClick={() => navigate(`/edit-product/${product.id}`)}
+									onClick={() => navigate(`/admin/edit-product/${product.id}`)}
 								>
 									Düzenle
 								</Button>

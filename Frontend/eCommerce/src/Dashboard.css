@@ -1,0 +1,18 @@
+.card {
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+	font-weight: bold;
+  }
+  
+  .card-text {
+	color: #6c757d;
+  }
+  
+  .display-4 {
+	font-size: 2.5rem;
+	font-weight: 300;
+  }
+  

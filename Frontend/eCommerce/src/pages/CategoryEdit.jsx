@@ -43,7 +43,7 @@ const CategoryEdit = () => {
 		e.preventDefault();
 		dispatch(updateCategory({ id, ...formData })).then(() => {
 			dispatch(fetchCategories());
-			navigate("/categories");
+			navigate("/admin/categories");
 		});
 	};
 

@@ -6,16 +6,16 @@ const Aside = () => {
 		<div className="aside">
 			<Nav vertical>
 				<NavItem>
-					<NavLink href="/">Overview</NavLink>
+					<NavLink href="/admin/">Dashboard</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/products">Product</NavLink>
+					<NavLink href="/admin/products">Product</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/categories">Category</NavLink>
+					<NavLink href="/admin/categories">Category</NavLink>
 				</NavItem>
 				<NavItem>
-					<NavLink href="/orders">Orders</NavLink>
+					<NavLink href="/admin/orders">Orders</NavLink>
 				</NavItem>
 			</Nav>
 		</div>

@@ -67,5 +67,9 @@ namespace eCommerce.Service
             return new NoContentResult();
         }
 
+        public int GetCategoryCount()
+        {
+            return db.Categories.Count();
+        }
     }
 }

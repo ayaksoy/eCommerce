@@ -10,6 +10,7 @@ import CategoryEdit from "./pages/CategoryEdit";
 import ProductListByCategory from "./pages/ProductListByCategory";
 import OrderList from "./pages/OrderList";
 import OrderEdit from "./pages/OrderEdit"; // Import OrderEdit
+import Dashboard from "./pages/Dashboard";
 import Aside from "./components/Aside";
 
 const App = () => {
@@ -21,18 +22,22 @@ const App = () => {
 					<Aside />
 					<div className="main-content">
 						<Routes>
-							<Route path="/products" element={<ProductList />} />
-							<Route path="/categories" element={<CategoryList />} />
-							<Route path="/add-product" element={<AddProduct />} />
-							<Route path="/add-category" element={<AddCategory />} />
-							<Route path="/edit-product/:id" element={<ProductEdit />} />
-							<Route path="/edit-category/:id" element={<CategoryEdit />} />
+							<Route path="/admin/" element={<Dashboard />} />
+							<Route path="/admin/products" element={<ProductList />} />
+							<Route path="/admin/categories" element={<CategoryList />} />
+							<Route path="/admin/add-product" element={<AddProduct />} />
+							<Route path="/admin/add-category" element={<AddCategory />} />
+							<Route path="/admin/edit-product/:id" element={<ProductEdit />} />
 							<Route
-								path="/products/category/:id"
+								path="/admin/edit-category/:id"
+								element={<CategoryEdit />}
+							/>
+							<Route
+								path="/admin/products/category/:id"
 								element={<ProductListByCategory />}
 							/>
-							<Route path="/orders" element={<OrderList />} />
-							<Route path="/edit-order/:id" element={<OrderEdit />} />
+							<Route path="/admin/orders" element={<OrderList />} />
+							<Route path="/admin/edit-order/:id" element={<OrderEdit />} />
 						</Routes>
 					</div>
 				</div>

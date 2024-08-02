@@ -64,7 +64,9 @@ const CategoryList = () => {
 									<Button
 										color="success"
 										style={{ marginRight: "10px" }}
-										onClick={() => navigate(`/edit-category/${category.id}`)}
+										onClick={() =>
+											navigate(`/admin/edit-category/${category.id}`)
+										}
 									>
 										Düzenle
 									</Button>
@@ -78,7 +80,7 @@ const CategoryList = () => {
 									<Button
 										color="secondary"
 										onClick={() =>
-											navigate(`/products/category/${category.id}`)
+											navigate(`/admin/products/category/${category.id}`)
 										}
 									>
 										Ürünler

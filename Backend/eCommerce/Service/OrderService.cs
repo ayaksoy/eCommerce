@@ -68,6 +68,11 @@ namespace eCommerce.Service
 
             return true;
         }
+
+        public int GetOrderCount()
+        {
+            return db.Orders.Count();
+        }
     }
 
 }

@@ -50,7 +50,7 @@ const ProductEdit = () => {
 		e.preventDefault();
 		dispatch(updateProduct({ id, ...formData })).then(() => {
 			dispatch(fetchProducts());
-			navigate("/products");
+			navigate("/admin/products");
 		});
 	};
 

@@ -24,7 +24,7 @@ const AddCategory = () => {
 			await dispatch(createCategory(newCategory)).unwrap();
 			// Kategoriler güncellenmişse, kategori listesini yeniden çek
 			await dispatch(fetchCategories()).unwrap();
-			navigate("/categories");
+			navigate("/admin/categories");
 		} catch (error) {
 			console.error("Kategori eklenirken bir hata oluştu:", error);
 		}
