@@ -1745,3 +1745,11 @@ button.btn {
         text-align: center; 
     } 
 }
+
+
+.custom-category-button{
+    border: none;
+    background: none;
+    color: #3971cc;
+    font-size: large;
+}

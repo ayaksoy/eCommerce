@@ -22,7 +22,7 @@ export default function Header() {
 						id="navbarCollapse"
 					>
 						<div className="navbar-nav m-auto">
-							<a href="index.html" className="nav-item nav-link active">
+							<a href="/" className="nav-item nav-link">
 								Home
 							</a>
 							<a href="/products" className="nav-item nav-link">

@@ -1,27 +1,14 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../features/productSlice";
+import React from "react";
 
-export default function ProductList() {
-	const dispatch = useDispatch();
-	const products = useSelector((state) => state.product.products);
-	const status = useSelector((state) => state.product.status);
-	const error = useSelector((state) => state.product.error);
-
-	useEffect(() => {
-		if (status === "idle") {
-			dispatch(fetchProducts());
-		}
-	}, [status, dispatch]);
-
+export default function ProductList({ products }) {
 	let content;
 
-	if (status === "loading") {
-		content = <p>Loading...</p>;
-	} else if (status === "succeeded") {
+	if (!products || products.length === 0) {
+		content = <p>No products available</p>;
+	} else {
 		content = products.map((product) => (
-			<div className="col-lg-4">
-				<div className="product-item" key={product.id}>
+			<div className="col-lg-4" key={product.id}>
+				<div className="product-item">
 					<div className="product-image">
 						<a href="product-detail.html">
 							<img src={product.imageUrl} alt={product.name} height="300px" />
@@ -46,8 +33,6 @@ export default function ProductList() {
 				</div>
 			</div>
 		));
-	} else if (status === "failed") {
-		content = <p>Error: {error}</p>;
 	}
 
 	return <>{content}</>;

@@ -1,9 +1,33 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CategoryList from "./CategoryList";
 import ProductList from "./ProductList";
+import { fetchProducts } from "../features/productSlice";
 
 const ProductView = () => {
+	const dispatch = useDispatch();
+	const products = useSelector((state) => state.product.products);
+	const status = useSelector((state) => state.product.status);
+	const [selectedCategoryProducts, setSelectedCategoryProducts] = useState([]);
+
+	useEffect(() => {
+		if (status === "idle") {
+			dispatch(fetchProducts());
+		}
+	}, [status, dispatch]);
+
+	useEffect(() => {
+		// Eğer bir kategori seçilmemişse tüm ürünleri göster
+		if (selectedCategoryProducts.length === 0) {
+			setSelectedCategoryProducts(products);
+		}
+	}, [products, selectedCategoryProducts]);
+
+	const handleCategorySelect = (products) => {
+		setSelectedCategoryProducts(products);
+	};
+
 	return (
 		<div className="product-view">
 			<div className="container">
@@ -14,7 +38,7 @@ const ProductView = () => {
 								<div className="row">
 									<div className="col-md-8">
 										<div className="product-search">
-											<input type="email" value="Search" />
+											<input type="email" value="Search" readOnly />
 											<button>
 												<i className="fa fa-search"></i>
 											</button>
@@ -22,7 +46,7 @@ const ProductView = () => {
 									</div>
 								</div>
 							</div>
-							<ProductList />
+							<ProductList products={selectedCategoryProducts} />
 						</div>
 
 						<div className="col-lg-12">
@@ -61,7 +85,7 @@ const ProductView = () => {
 					<div className="col-md-3">
 						<div className="sidebar-widget category">
 							<h2 className="title">Category</h2>
-							<CategoryList />
+							<CategoryList onCategorySelect={handleCategorySelect} />
 						</div>
 					</div>
 				</div>

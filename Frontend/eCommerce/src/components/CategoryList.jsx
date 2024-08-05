@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategories } from "../features/categorySlice"; // categorySlice dosyanızın yolu
+import { fetchCategories } from "../features/categorySlice";
+import { fetchProductsByCategoryId } from "../features/productSlice";
 
-export default function CategoryList() {
+export default function CategoryList({ onCategorySelect }) {
 	const dispatch = useDispatch();
 	const categories = useSelector((state) => state.category.categories);
 	const status = useSelector((state) => state.category.status);
@@ -14,6 +15,14 @@ export default function CategoryList() {
 		}
 	}, [status, dispatch]);
 
+	const handleCategoryClick = (categoryId) => {
+		dispatch(fetchProductsByCategoryId(categoryId)).then((response) => {
+			if (response.meta.requestStatus === "fulfilled") {
+				onCategorySelect(response.payload);
+			}
+		});
+	};
+
 	let content;
 
 	if (status === "loading") {
@@ -23,7 +32,9 @@ export default function CategoryList() {
 			<ul>
 				{categories.map((category) => (
 					<li key={category.id}>
-						<a href="#">{category.name}</a>
+						<button onClick={() => handleCategoryClick(category.id)} className="custom-category-button">
+							{category.name}
+						</button>
 					</li>
 				))}
 			</ul>
