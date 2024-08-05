@@ -5,19 +5,28 @@ import { removeFromCart, updateQuantity } from "../features/productSlice";
 export default function CartProductList() {
 	const dispatch = useDispatch();
 	const cart = useSelector((state) => state.product.cart) || []; // Redux store'dan sepeti al
+	const products = useSelector((state) => state.product.products) || []; // Stok bilgilerini almak için tüm ürünleri al
 
 	const handleRemove = (id) => {
 		dispatch(removeFromCart(id));
 	};
 
 	const handleQuantityChange = (id, newQuantity) => {
-		if (newQuantity > 0) {
+		// Sepetteki ürünü bul
+		const item = cart.find((item) => item.id === id);
+		// Ürünün stok miktarını bul
+		const stock = products.find((product) => product.id === id)?.stock || 0;
+
+		// Stok miktarını geçmeyecek şekilde güncelle
+		if (newQuantity > 0 && newQuantity <= stock) {
 			dispatch(updateQuantity({ id, quantity: newQuantity }));
+		} else {
+			alert("Stok miktarından fazla ürün ekleyemezsiniz.");
 		}
 	};
 
 	if (cart.length === 0) {
-		return <p>No products in cart</p>;
+		return <h4 className="text-center">No products in cart</h4>;
 	}
 
 	return (

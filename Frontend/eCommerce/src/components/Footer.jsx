@@ -7,7 +7,7 @@ const Footer = () => {
 			<div className="footer">
 				<div className="container-fluid">
 					<div className="row">
-						<div className="col-lg-3 col-md-6">
+						<div className="col-lg-3 col-md-6" style={{ marginLeft: "200px" }}>
 							<div className="footer-widget">
 								<h1>E Shop</h1>
 								<p>
@@ -20,60 +20,10 @@ const Footer = () => {
 							</div>
 						</div>
 
-						<div className="col-lg-3 col-md-6">
-							<div className="footer-widget">
-								<h3 className="title">Useful Pages</h3>
-								<ul>
-									<li>
-										<a href="product.html">Product</a>
-									</li>
-									<li>
-										<a href="product-detail.html">Product Detail</a>
-									</li>
-									<li>
-										<a href="cart.html">Cart</a>
-									</li>
-									<li>
-										<a href="checkout.html">Checkout</a>
-									</li>
-									<li>
-										<a href="login.html">Login & Register</a>
-									</li>
-									<li>
-										<a href="my-account.html">My Account</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+						<div className="col-lg-3 col-md-6"></div>
 
 						<div className="col-lg-3 col-md-6">
-							<div className="footer-widget">
-								<h3 className="title">Quick Links</h3>
-								<ul>
-									<li>
-										<a href="product.html">Product</a>
-									</li>
-									<li>
-										<a href="cart.html">Cart</a>
-									</li>
-									<li>
-										<a href="checkout.html">Checkout</a>
-									</li>
-									<li>
-										<a href="login.html">Login & Register</a>
-									</li>
-									<li>
-										<a href="my-account.html">My Account</a>
-									</li>
-									<li>
-										<a href="wishlist.html">Wishlist</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-
-						<div className="col-lg-3 col-md-6">
-							<div className="footer-widget">
+							<div className="footer-widget" style={{ marginLeft: "150px" }}>
 								<h3 className="title">Get in Touch</h3>
 								<div className="contact-info">
 									<p>
@@ -86,23 +36,6 @@ const Footer = () => {
 									<p>
 										<i className="fa fa-phone"></i>+123-456-7890
 									</p>
-									<div className="social">
-										<a href="">
-											<i className="fa fa-twitter"></i>
-										</a>
-										<a href="">
-											<i className="fa fa-facebook"></i>
-										</a>
-										<a href="">
-											<i className="fa fa-linkedin"></i>
-										</a>
-										<a href="">
-											<i className="fa fa-instagram"></i>
-										</a>
-										<a href="">
-											<i className="fa fa-youtube"></i>
-										</a>
-									</div>
 								</div>
 							</div>
 						</div>

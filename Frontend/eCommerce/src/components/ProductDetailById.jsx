@@ -5,9 +5,10 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../features/productSlice";
 
 export default function ProductDetailById() {
-	const { id } = useParams(); // URL'den ürün ID'sini al
+	const { id } = useParams();
 	const [product, setProduct] = useState(null);
-	const dispatch = useDispatch(); // Redux aksiyonlarına erişim sağla
+	const [quantity, setQuantity] = useState(1); // Kullanıcının sepet için seçtiği miktar
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const fetchProduct = async () => {
@@ -25,8 +26,12 @@ export default function ProductDetailById() {
 	}, [id]);
 
 	const handleAddToCart = () => {
-		if (product) {
-			dispatch(addToCart(product)); // Ürünü sepete ekle
+		if (product && quantity > 0 && quantity <= product.stock) {
+			dispatch(addToCart({ ...product, quantity }));
+		} else {
+			alert(
+				"Stok miktarından fazla ürün ekleyemezsiniz veya geçersiz miktar girdiniz."
+			);
 		}
 	};
 
@@ -51,10 +56,29 @@ export default function ProductDetailById() {
 										<h2>{product.name}</h2>
 									</div>
 									<div className="price">${product.price}</div>
+									<div className="stock">
+										<p>Stock: {product.stock}</p>
+									</div>
+									<div className="quantity">
+										<label htmlFor="quantity">Quantity:</label>
+										<input
+											type="number"
+											id="quantity"
+											value={quantity}
+											onChange={(e) => {
+												const value = Math.max(
+													1,
+													Math.min(product.stock, Number(e.target.value))
+												);
+												setQuantity(value);
+											}}
+											min="1"
+											max={product.stock}
+										/>
+									</div>
 									<div className="details">
 										<p>{product.description}</p>
 									</div>
-
 									<div className="action">
 										<button
 											onClick={handleAddToCart}

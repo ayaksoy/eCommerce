@@ -1,18 +1,51 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../features/productSlice";
+import { Link } from "react-router-dom";
+import { addToCart } from "../features/productSlice"; // Eylemi import edin
+import Swal from "sweetalert2"; // SweetAlert2'yi import edin
 
 export default function ProductList({ products }) {
 	const dispatch = useDispatch();
 	const status = useSelector((state) => state.product.status);
-	const cart = useSelector((state) => state.product.cart); // Sepeti state'ten al
+	const cart = useSelector((state) => state.product.cart);
 
 	const handleAddToCart = (product) => {
-		// Sepete ürün ekleme işlevi
-		dispatch({ type: "product/addToCart", payload: product });
-		// Sepetin güncellenmiş halini konsola yazdır
-		console.log("Sepet güncellendi:", cart);
+		const existingItem = cart.find((item) => item.id === product.id);
+
+		// Eğer ürün sepette mevcutsa ve stok miktarını geçmeyecekse ekleyin
+		if (existingItem) {
+			if (existingItem.quantity < product.stock) {
+				dispatch(
+					addToCart({ ...product, quantity: existingItem.quantity + 1 })
+				);
+				Swal.fire({
+					icon: "success",
+					title: "Başarıyla eklendi!",
+					text: `${product.name} sepete eklendi.`,
+				});
+			} else {
+				Swal.fire({
+					icon: "error",
+					title: "Stok Sorunu",
+					text: "Stok miktarından fazla ürün ekleyemezsiniz.",
+				});
+			}
+		} else {
+			if (product.stock > 0) {
+				dispatch(addToCart({ ...product, quantity: 1 }));
+				Swal.fire({
+					icon: "success",
+					title: "Başarıyla eklendi!",
+					text: `${product.name} sepete eklendi.`,
+				});
+			} else {
+				Swal.fire({
+					icon: "error",
+					title: "Stok Sorunu",
+					text: "Bu ürün stokta mevcut değil.",
+				});
+			}
+		}
 	};
 
 	let content;
@@ -35,7 +68,7 @@ export default function ProductList({ products }) {
 					</div>
 					<div className="product-content">
 						<div className="title">
-							<Link to={`/products/${product.id}`}>{product.name}</Link>
+							<Link to={`/product/${product.id}`}>{product.name}</Link>
 						</div>
 						<div className="rating">
 							{[...Array(5)].map((_, index) => (
@@ -43,6 +76,7 @@ export default function ProductList({ products }) {
 							))}
 						</div>
 						<div className="price">${product.price}</div>
+						<div className="stock">Stock: {product.stock}</div>
 					</div>
 				</div>
 			</div>

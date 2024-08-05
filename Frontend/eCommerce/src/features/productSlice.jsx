@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const initialState = {
 	products: [],
-	cart: [], // Sepet için başlangıç durumu
+	cart: [],
 	status: "idle",
 	error: null,
 };
@@ -60,25 +61,57 @@ const productSlice = createSlice({
 	name: "product",
 	initialState,
 	reducers: {
-		addToCart: (state, action) => {
-			const product = action.payload;
-			const existingProduct = state.cart.find((item) => item.id === product.id);
-			if (existingProduct) {
-				existingProduct.quantity += 1;
+		addToCart(state, action) {
+			const { id, quantity } = action.payload;
+			const existingProduct = state.products.find(
+				(product) => product.id === id
+			);
+			const existingItem = state.cart.find((item) => item.id === id);
+
+			if (existingItem) {
+				const newQuantity = existingItem.quantity + quantity;
+				if (newQuantity <= (existingProduct?.stock || 0)) {
+					existingItem.quantity = newQuantity;
+				} else {
+					Swal.fire(
+						"Hata!",
+						"Stok miktarından fazla ürün ekleyemezsiniz.",
+						"error"
+					);
+				}
 			} else {
-				state.cart.push({ ...product, quantity: 1 });
+				if (quantity <= (existingProduct?.stock || 0)) {
+					state.cart.push({ ...action.payload });
+				} else {
+					Swal.fire("Hata!", "Stok miktarını aştınız.", "error");
+				}
 			}
 		},
-		removeFromCart: (state, action) => {
+		removeFromCart(state, action) {
 			const id = action.payload;
 			state.cart = state.cart.filter((item) => item.id !== id);
 		},
-		updateQuantity: (state, action) => {
+		updateQuantity(state, action) {
 			const { id, quantity } = action.payload;
-			const existingProduct = state.cart.find((item) => item.id === id);
-			if (existingProduct) {
-				existingProduct.quantity = quantity;
+			const existingItem = state.cart.find((item) => item.id === id);
+			const existingProduct = state.products.find(
+				(product) => product.id === id
+			);
+
+			if (existingItem) {
+				if (quantity <= (existingProduct?.stock || 0) && quantity > 0) {
+					existingItem.quantity = quantity;
+				} else {
+					Swal.fire(
+						"Hata!",
+						"Geçersiz miktar veya stok miktarını aştınız.",
+						"error"
+					);
+				}
 			}
+		},
+		clearCart(state) {
+			state.cart = [];
 		},
 	},
 	extraReducers: (builder) => {
@@ -148,6 +181,6 @@ const productSlice = createSlice({
 	},
 });
 
-export const { addToCart, removeFromCart, updateQuantity } =
+export const { addToCart, removeFromCart, updateQuantity, clearCart } =
 	productSlice.actions;
 export default productSlice.reducer;
