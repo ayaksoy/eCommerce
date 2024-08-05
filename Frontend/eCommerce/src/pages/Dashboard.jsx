@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders } from "../features/orderSlice";
 import { fetchCategories } from "../features/categorySlice";
 import { fetchProducts } from "../features/productSlice"; // Ürünlerin fetch edilmesi
-import "../Dashboard.css";
 import AdminNavbar from "../components/AdminNavbar";
 import AdminAside from "../components/AdminAside";
 
@@ -31,7 +30,6 @@ const Dashboard = () => {
 	return (
 		<>
 			<AdminNavbar />
-			<AdminAside />
 			<div className="container mt-4">
 				<Row>
 					<Col sm="12" md="4">

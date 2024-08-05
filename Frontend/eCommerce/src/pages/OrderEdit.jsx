@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { updateOrder, fetchOrders } from "../features/orderSlice";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import AdminNavbar from "../components/AdminNavbar";
 
 const OrderEdit = () => {
 	const { id } = useParams();
@@ -53,6 +54,7 @@ const OrderEdit = () => {
 
 	return (
 		<div>
+			<AdminNavbar />
 			<h2>Sipariş Düzenle</h2>
 			<Form onSubmit={handleSubmit}>
 				<FormGroup>

@@ -3,6 +3,7 @@ import { Table, Button } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOrders, deleteOrder } from "../features/orderSlice";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../components/AdminNavbar";
 
 const OrderList = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ const OrderList = () => {
 
   return (
     <div>
+      <AdminNavbar />
       <h2>Sipariş Listesi</h2>
       <Table>
         <thead>

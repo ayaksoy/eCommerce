@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchProductsByCategoryId } from "../features/productSlice";
 import { Table, Button } from "reactstrap";
+import AdminNavbar from "../components/AdminNavbar";
 
 const ProductListByCategory = () => {
 	const { id } = useParams();
@@ -26,6 +27,7 @@ const ProductListByCategory = () => {
 
 	return (
 		<div>
+			<AdminNavbar />
 			<h2>Ürünler</h2>
 			<Table>
 				<thead>

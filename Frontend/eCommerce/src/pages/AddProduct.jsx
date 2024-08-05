@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct, fetchProducts } from "../features/productSlice";
 import { fetchCategories } from "../features/categorySlice";
+import AdminNavbar from "../components/AdminNavbar";
 
 const AddProduct = () => {
 	const [name, setName] = useState("");
@@ -58,6 +59,7 @@ const AddProduct = () => {
 
 	return (
 		<Container>
+			<AdminNavbar />
 			<h2>Ürün Ekle</h2>
 			<Form onSubmit={handleSubmit}>
 				<FormGroup>

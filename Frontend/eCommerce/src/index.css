@@ -16,12 +16,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
+  height: 100%; /* Yüksekliği sayfa yüksekliğine yayar */
 }
 
 .aside .nav-link {
   color: white;
   margin-bottom: 10px;
 }
+
 
 .aside .nav-link:hover {
   text-decoration: none;
@@ -33,3 +35,4 @@ body {
   padding: 20px;
   overflow-y: auto;
 }
+

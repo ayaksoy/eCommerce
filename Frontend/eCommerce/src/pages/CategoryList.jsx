@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories, deleteCategory } from "../features/categorySlice";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../components/AdminNavbar";
 
 const CategoryList = () => {
 	const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const CategoryList = () => {
 
 	return (
 		<div>
+			<AdminNavbar />
 			<h2>Kategori Listesi</h2>
 			<Button onClick={() => navigate("/add-category")}>Kategori Ekle</Button>
 			<Table>

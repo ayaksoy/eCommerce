@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button, Container } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createCategory, fetchCategories } from "../features/categorySlice";
+import AdminNavbar from "../components/AdminNavbar";
 
 const AddCategory = () => {
 	const [name, setName] = useState("");
@@ -32,6 +33,7 @@ const AddCategory = () => {
 
 	return (
 		<Container>
+			<AdminNavbar />
 			<h2>Kategori Ekle</h2>
 			<Form onSubmit={handleSubmit}>
 				<FormGroup>

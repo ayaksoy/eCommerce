@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchCategories, updateCategory } from "../features/categorySlice";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import AdminNavbar from "../components/AdminNavbar";
 
 const CategoryEdit = () => {
 	const { id } = useParams();
@@ -49,6 +50,7 @@ const CategoryEdit = () => {
 
 	return (
 		<div>
+			<AdminNavbar />
 			<h2>Kategoriyi Düzenle</h2>
 			<Form onSubmit={handleSubmit}>
 				<FormGroup>

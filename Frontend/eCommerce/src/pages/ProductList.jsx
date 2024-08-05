@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { fetchProducts, deleteProduct } from "../features/productSlice";
 import { useNavigate } from "react-router-dom";
 import AdminNavbar from "../components/AdminNavbar";
-import AdminAside from "../components/AdminAside";
 
 const ProductList = () => {
 	const dispatch = useDispatch();
@@ -37,7 +36,6 @@ const ProductList = () => {
 	return (
 		<>
 			<AdminNavbar />
-			<AdminAside />
 			<div>
 				<h2>Ürün Listesi</h2>
 				<Button onClick={() => navigate("/admin/add-product")}>

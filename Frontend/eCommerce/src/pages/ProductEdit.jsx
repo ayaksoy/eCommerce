@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchProducts, updateProduct } from "../features/productSlice";
 import { fetchCategories } from "../features/categorySlice";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import AdminNavbar from "../components/AdminNavbar";
+
 
 const ProductEdit = () => {
 	const { id } = useParams();
@@ -56,6 +58,7 @@ const ProductEdit = () => {
 
 	return (
 		<div>
+			<AdminNavbar />
 			<h2>Ürünü Düzenle</h2>
 			<Form onSubmit={handleSubmit}>
 				<FormGroup>
