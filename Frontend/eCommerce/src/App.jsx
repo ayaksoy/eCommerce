@@ -14,6 +14,7 @@ import OrderEdit from "./pages/OrderEdit";
 import Dashboard from "./pages/Dashboard";
 import Main from "./pages/Main";
 import ListProduct from "./pages/ListProduct";
+import Contact from "./pages/Contact";
 
 const App = () => {
 	return (
@@ -21,6 +22,7 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/products" element={<ListProduct />} />
+				<Route path="/contact" element={<Contact />} />
 				<Route path="/admin/" element={<Dashboard />} />
 				<Route path="/admin/products" element={<ProductList />} />
 				<Route path="/admin/categories" element={<CategoryList />} />
