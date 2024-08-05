@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Link bileşenini içe aktarın
 
 export default function TopHeader() {
 	return (
@@ -7,9 +8,9 @@ export default function TopHeader() {
 				<div className="row align-items-center">
 					<div className="col-md-3">
 						<div className="logo">
-							<a href="">
+							<Link to="/">
 								<img src="img/logo.png" alt="Logo" className="aaa" />
-							</a>
+							</Link>
 						</div>
 					</div>
 					<div className="col-md-6">
@@ -23,21 +24,22 @@ export default function TopHeader() {
 					<div className="col-md-3">
 						<div className="user">
 							<div className="dropdown">
-								<a href="#" className="dropdown-toggle" data-toggle="dropdown">
+								<Link to="#" className="dropdown-toggle" data-toggle="dropdown">
 									My Account
-								</a>
+								</Link>
 								<div className="dropdown-menu">
-									<a href="#" className="dropdown-item">
+									<Link to="#" className="dropdown-item">
 										Login
-									</a>
-									<a href="#" className="dropdown-item">
+									</Link>
+									<Link to="#" className="dropdown-item">
 										Register
-									</a>
+									</Link>
 								</div>
 							</div>
 							<div className="cart">
-								<i className="fa fa-cart-plus"></i>
-								<span>(0)</span>
+								<Link to="/cart">
+									<i className="fa fa-cart-plus"></i>
+								</Link>
 							</div>
 						</div>
 					</div>

@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Header() {
 	return (
 		<div className="header">
 			<div className="container">
 				<nav className="navbar navbar-expand-md bg-dark navbar-dark">
-					<a href="#" className="navbar-brand">
+					<Link to="/" className="navbar-brand">
 						MENU
-					</a>
+					</Link>
 					<button
 						type="button"
 						className="navbar-toggler"
@@ -22,12 +23,12 @@ export default function Header() {
 						id="navbarCollapse"
 					>
 						<div className="navbar-nav m-auto">
-							<a href="/" className="nav-item nav-link">
+							<Link to="/" className="nav-item nav-link">
 								Home
-							</a>
-							<a href="/products" className="nav-item nav-link">
+							</Link>
+							<Link to="/products" className="nav-item nav-link">
 								Products
-							</a>
+							</Link>
 							<div className="nav-item dropdown">
 								<a
 									href="#"
@@ -37,32 +38,32 @@ export default function Header() {
 									Pages
 								</a>
 								<div className="dropdown-menu">
-									<a href="product-list.html" className="dropdown-item">
+									<Link to="/product-list" className="dropdown-item">
 										Product
-									</a>
-									<a href="product-detail.html" className="dropdown-item">
+									</Link>
+									<Link to="/product-detail" className="dropdown-item">
 										Product Detail
-									</a>
-									<a href="cart.html" className="dropdown-item">
+									</Link>
+									<Link to="/cart" className="dropdown-item">
 										Cart
-									</a>
-									<a href="wishlist.html" className="dropdown-item">
+									</Link>
+									<Link to="/wishlist" className="dropdown-item">
 										Wishlist
-									</a>
-									<a href="checkout.html" className="dropdown-item">
+									</Link>
+									<Link to="/checkout" className="dropdown-item">
 										Checkout
-									</a>
-									<a href="login.html" className="dropdown-item">
+									</Link>
+									<Link to="/login" className="dropdown-item">
 										Login & Register
-									</a>
-									<a href="my-account.html" className="dropdown-item">
+									</Link>
+									<Link to="/my-account" className="dropdown-item">
 										My Account
-									</a>
+									</Link>
 								</div>
 							</div>
-							<a href="/contact" className="nav-item nav-link">
+							<Link to="/contact" className="nav-item nav-link">
 								Contact Us
-							</a>
+							</Link>
 						</div>
 					</div>
 				</nav>

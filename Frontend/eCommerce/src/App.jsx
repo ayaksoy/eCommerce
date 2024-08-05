@@ -16,6 +16,7 @@ import Main from "./pages/Main";
 import ListProduct from "./pages/ListProduct";
 import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
+import ProductDetail from "./pages/ProductDetail";
 
 const App = () => {
 	return (
@@ -23,6 +24,7 @@ const App = () => {
 			<Routes>
 				<Route path="/" element={<Main />} />
 				<Route path="/products" element={<ListProduct />} />
+				<Route path="/products/:id" element={<ProductDetail />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/cart" element={<Cart />} />
 				<Route path="/admin/" element={<Dashboard />} />

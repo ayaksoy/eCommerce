@@ -1,6 +1,25 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, updateQuantity } from "../features/productSlice";
 
 export default function CartProductList() {
+	const dispatch = useDispatch();
+	const cart = useSelector((state) => state.product.cart) || []; // Redux store'dan sepeti al
+
+	const handleRemove = (id) => {
+		dispatch(removeFromCart(id));
+	};
+
+	const handleQuantityChange = (id, newQuantity) => {
+		if (newQuantity > 0) {
+			dispatch(updateQuantity({ id, quantity: newQuantity }));
+		}
+	};
+
+	if (cart.length === 0) {
+		return <p>No products in cart</p>;
+	}
+
 	return (
 		<div className="cart-page">
 			<div className="container">
@@ -19,34 +38,58 @@ export default function CartProductList() {
 									</tr>
 								</thead>
 								<tbody className="align-middle">
-									<tr>
-										<td>
-											<a href="#">
-												<img src="img/product-1.png" alt="Image" />
-											</a>
-										</td>
-										<td>
-											<a href="#">Product Name</a>
-										</td>
-										<td>$22</td>
-										<td>
-											<div className="qty">
-												<button className="btn-minus">
-													<i className="fa fa-minus"></i>
+									{cart.map((item) => (
+										<tr key={item.id}>
+											<td>
+												<a href="#">
+													<img
+														src={item.imageUrl}
+														alt={item.name}
+														style={{ width: "50px" }}
+													/>
+												</a>
+											</td>
+											<td>
+												<a href="#">{item.name}</a>
+											</td>
+											<td>${item.price}</td>
+											<td>
+												<div className="qty">
+													<button
+														className="btn-minus"
+														onClick={() =>
+															handleQuantityChange(item.id, item.quantity - 1)
+														}
+													>
+														<i className="fa fa-minus"></i>
+													</button>
+													<input
+														type="text"
+														value={item.quantity || 1} // miktar verisi varsa kullan
+														readOnly
+														style={{ width: "40px", textAlign: "center" }}
+													/>
+													<button
+														className="btn-plus"
+														onClick={() =>
+															handleQuantityChange(item.id, item.quantity + 1)
+														}
+													>
+														<i className="fa fa-plus"></i>
+													</button>
+												</div>
+											</td>
+											<td>${(item.price * (item.quantity || 1)).toFixed(2)}</td>
+											<td>
+												<button
+													className="btn-remove"
+													onClick={() => handleRemove(item.id)}
+												>
+													<i className="fa fa-trash"></i>
 												</button>
-												<input type="text" value="1" />
-												<button className="btn-plus">
-													<i className="fa fa-plus"></i>
-												</button>
-											</div>
-										</td>
-										<td>$22</td>
-										<td>
-											<button>
-												<i className="fa fa-trash"></i>
-											</button>
-										</td>
-									</tr>
+											</td>
+										</tr>
+									))}
 								</tbody>
 							</table>
 						</div>

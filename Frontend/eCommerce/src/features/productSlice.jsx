@@ -1,9 +1,9 @@
-// src/features/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
 	products: [],
+	cart: [], // Sepet için başlangıç durumu
 	status: "idle",
 	error: null,
 };
@@ -59,7 +59,28 @@ export const deleteProduct = createAsyncThunk(
 const productSlice = createSlice({
 	name: "product",
 	initialState,
-	reducers: {},
+	reducers: {
+		addToCart: (state, action) => {
+			const product = action.payload;
+			const existingProduct = state.cart.find((item) => item.id === product.id);
+			if (existingProduct) {
+				existingProduct.quantity += 1;
+			} else {
+				state.cart.push({ ...product, quantity: 1 });
+			}
+		},
+		removeFromCart: (state, action) => {
+			const id = action.payload;
+			state.cart = state.cart.filter((item) => item.id !== id);
+		},
+		updateQuantity: (state, action) => {
+			const { id, quantity } = action.payload;
+			const existingProduct = state.cart.find((item) => item.id === id);
+			if (existingProduct) {
+				existingProduct.quantity = quantity;
+			}
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchProducts.pending, (state) => {
@@ -103,7 +124,9 @@ const productSlice = createSlice({
 				const index = state.products.findIndex(
 					(product) => product.id === action.payload.id
 				);
-				state.products[index] = action.payload;
+				if (index !== -1) {
+					state.products[index] = action.payload;
+				}
 			})
 			.addCase(updateProduct.rejected, (state, action) => {
 				state.status = "failed";
@@ -125,4 +148,6 @@ const productSlice = createSlice({
 	},
 });
 
+export const { addToCart, removeFromCart, updateQuantity } =
+	productSlice.actions;
 export default productSlice.reducer;

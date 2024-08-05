@@ -1,13 +1,10 @@
 import React from "react";
-import CartProductList from "../components/CartProductList";
-import { useSelector } from "react-redux";
 import TopHeader from "../components/TopHeader";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ProductDetailById from "../components/ProductDetailById";
 
-export default function Cart() {
-	const cart = useSelector((state) => state.product.cart); // Sepeti Redux durumundan al
-
+export default function ProductDetail() {
 	return (
 		<div>
 			<TopHeader />
@@ -21,11 +18,12 @@ export default function Cart() {
 						<li className="breadcrumb-item">
 							<a href="#">Products</a>
 						</li>
-						<li className="breadcrumb-item active">Cart</li>
+						<li className="breadcrumb-item active">product details</li>
 					</ul>
 				</div>
 			</div>
-			<CartProductList cart={cart} />
+			<ProductDetailById />
+
 			<Footer />
 		</div>
 	);
