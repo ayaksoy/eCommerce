@@ -10,6 +10,11 @@ const AdminNavbar = () => {
 			</NavbarBrand>
 			<Nav className="ml-auto" navbar>
 				<NavItem>
+					<a href="/anasayfa" className="nav-link">
+						Anasayfa
+					</a>
+				</NavItem>
+				<NavItem>
 					<Link to="/admin/" className="nav-link">
 						Overview
 					</Link>

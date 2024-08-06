@@ -68,7 +68,7 @@ export default function ProductList({ products }) {
 					</div>
 					<div className="product-content">
 						<div className="title">
-							<Link to={`/product/${product.id}`}>{product.name}</Link>
+							<Link to={`/products/${product.id}`}>{product.name}</Link>
 						</div>
 						<div className="rating">
 							{[...Array(5)].map((_, index) => (

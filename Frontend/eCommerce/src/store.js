@@ -3,6 +3,8 @@ import productReducer from "./features/productSlice";
 import categoryReducer from "./features/categorySlice";
 import orderReducer from "./features/orderSlice";
 import orderItemReducer from "./features/orderItemSlice";
+import adminReducer from "./features/adminSlice";
+import authReducer from "./features/authSlice";
 
 const store = configureStore({
 	reducer: {
@@ -10,6 +12,8 @@ const store = configureStore({
     category: categoryReducer,
 	order: orderReducer,
 	orderItem: orderItemReducer,
+	admin: adminReducer,
+	auth: authReducer,
 	},
 });
 

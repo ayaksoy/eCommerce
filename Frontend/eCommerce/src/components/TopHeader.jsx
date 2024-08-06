@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Link bileşenini içe aktarın
+import { Link, NavLink } from "react-router-dom"; // İki bileşeni içe aktarın
 
 export default function TopHeader() {
 	return (
@@ -8,33 +8,22 @@ export default function TopHeader() {
 				<div className="row align-items-center">
 					<div className="col-md-3">
 						<div className="logo">
-							<Link to="/">
+							<Link to="/anasayfa">
 								<img src="img/logo.png" alt="Logo" className="aaa" />
 							</Link>
 						</div>
 					</div>
-					<div className="col-md-6">
-					</div>
+					<div className="col-md-6"></div>
 					<div className="col-md-3">
 						<div className="user">
-							<div className="dropdown">
-								<Link to="#" className="dropdown-toggle" data-toggle="dropdown">
-									My Account
-								</Link>
-								<div className="dropdown-menu">
-									<Link to="#" className="dropdown-item">
-										Login
-									</Link>
-									<Link to="#" className="dropdown-item">
-										Register
-									</Link>
-								</div>
-							</div>
-							<div className="cart">
-								<Link to="/cart">
-									<i className="fa fa-cart-plus"></i>
-								</Link>
-							</div>
+							{/* NavLink yerine sadece Link kullanıyoruz */}
+							<Link to="/" className="dropdown-toggle">
+								Admin Login
+							</Link>
+							{/* NavLink yerine sadece Link kullanıyoruz */}
+							<Link to="/cart" className="ml-5">
+								<i className="fa fa-cart-plus"></i>
+							</Link>
 						</div>
 					</div>
 				</div>
