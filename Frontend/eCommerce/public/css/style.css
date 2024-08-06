@@ -1753,3 +1753,24 @@ button.btn {
     color: #3971cc;
     font-size: large;
 }
+
+.order-details {
+	padding: 20px;
+	background: #f9f9f9;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.order-details h3 {
+	margin-bottom: 15px;
+}
+
+.order-details ul {
+	list-style: none;
+	padding: 0;
+}
+
+.order-details ul li {
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+}

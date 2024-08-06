@@ -45,7 +45,11 @@ export default function Cart() {
 				});
 
 				// Sipariş başarılı olduğunda
-				Swal.fire("Başarılı!", "Siparişiniz başarıyla alındı.", "success");
+				Swal.fire({
+					icon: "success",
+					title: "Başarılı!",
+					text: `Siparişiniz başarıyla alındı. Takip numaranız: TRxTRCK${orderId}`,
+				});
 
 				// Sepeti sıfırla
 				dispatch({ type: "product/clearCart" });

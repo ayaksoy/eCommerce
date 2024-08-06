@@ -21,7 +21,7 @@ namespace eCommerce.Service
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-            return await db.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            return await db.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
         }
         public async Task<Order> CreateOrderAsync(OrderDto order)
         {

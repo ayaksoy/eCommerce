@@ -5,24 +5,47 @@ const initialState = {
 	orders: [],
 	status: "idle",
 	error: null,
+	orderDetails: null, // Sipariş detaylarını saklamak için
 };
 
 // Siparişleri getirme
 export const fetchOrders = createAsyncThunk("order/fetchOrders", async () => {
-	const response = await axios.get("http://localhost:5047/api/Order");
-	console.log("Slice: Gelen veriler:", response.data); // Verinin doğru geldiğini kontrol edin
-	return response.data.$values || response.data; // Yanıt yapısını kontrol edin
+	try {
+		const response = await axios.get("http://localhost:5047/api/Order");
+		return response.data.$values || response.data;
+	} catch (error) {
+		throw new Error(error.message || "Siparişleri getirirken bir hata oluştu.");
+	}
 });
+
+// Sipariş detaylarını getirme
+export const fetchOrderById = createAsyncThunk(
+	"order/fetchOrderById",
+	async (id) => {
+		try {
+			const response = await axios.get(`http://localhost:5047/api/Order/${id}`);
+			return response.data;
+		} catch (error) {
+			throw new Error(
+				error.message || "Sipariş detaylarını getirirken bir hata oluştu."
+			);
+		}
+	}
+);
 
 // Sipariş oluşturma
 export const createOrder = createAsyncThunk(
 	"order/createOrder",
 	async (newOrder) => {
-		const response = await axios.post(
-			"http://localhost:5047/api/Order",
-			newOrder
-		);
-		return response.data;
+		try {
+			const response = await axios.post(
+				"http://localhost:5047/api/Order",
+				newOrder
+			);
+			return response.data;
+		} catch (error) {
+			throw new Error(error.message || "Sipariş oluştururken bir hata oluştu.");
+		}
 	}
 );
 
@@ -30,18 +53,28 @@ export const createOrder = createAsyncThunk(
 export const updateOrder = createAsyncThunk(
 	"order/updateOrder",
 	async ({ id, ...updatedOrder }) => {
-		const response = await axios.put(
-			`http://localhost:5047/api/Order/${id}`,
-			updatedOrder
-		);
-		return response.data;
+		try {
+			const response = await axios.put(
+				`http://localhost:5047/api/Order/${id}`,
+				updatedOrder
+			);
+			return response.data;
+		} catch (error) {
+			throw new Error(
+				error.message || "Sipariş güncellenirken bir hata oluştu."
+			);
+		}
 	}
 );
 
 // Sipariş silme
 export const deleteOrder = createAsyncThunk("order/deleteOrder", async (id) => {
-	await axios.delete(`http://localhost:5047/api/Order/${id}`);
-	return id;
+	try {
+		await axios.delete(`http://localhost:5047/api/Order/${id}`);
+		return id;
+	} catch (error) {
+		throw new Error(error.message || "Sipariş silinirken bir hata oluştu.");
+	}
 });
 
 const orderSlice = createSlice({
@@ -58,6 +91,17 @@ const orderSlice = createSlice({
 				state.orders = action.payload;
 			})
 			.addCase(fetchOrders.rejected, (state, action) => {
+				state.status = "failed";
+				state.error = action.error.message;
+			})
+			.addCase(fetchOrderById.pending, (state) => {
+				state.status = "loading";
+			})
+			.addCase(fetchOrderById.fulfilled, (state, action) => {
+				state.status = "succeeded";
+				state.orderDetails = action.payload;
+			})
+			.addCase(fetchOrderById.rejected, (state, action) => {
 				state.status = "failed";
 				state.error = action.error.message;
 			})

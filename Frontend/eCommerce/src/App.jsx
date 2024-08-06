@@ -18,6 +18,7 @@ import Contact from "./pages/Contact";
 import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
+import OrderTracking from "./pages/OrderTracking";
 
 const App = () => {
 	return (
@@ -29,6 +30,7 @@ const App = () => {
 				<Route path="/products/:id" element={<ProductDetail />} />
 				<Route path="/contact" element={<Contact />} />
 				<Route path="/cart" element={<Cart />} />
+				<Route path="/orderTracking" element={<OrderTracking />} />
 				<Route path="/admin/" element={<Dashboard />} />
 				<Route path="/admin/products" element={<ProductList />} />
 				<Route path="/admin/categories" element={<CategoryList />} />

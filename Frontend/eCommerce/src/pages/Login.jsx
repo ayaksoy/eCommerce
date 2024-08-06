@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchAdmins } from "../features/adminSlice";
+import TopHeader from "../components/TopHeader";
+import Header from "../components/Header";
 
 const Login = () => {
 	const dispatch = useDispatch();
@@ -45,31 +47,36 @@ const Login = () => {
 	};
 
 	return (
-		<div style={styles.container}>
-			<h2>Giriş Yap</h2>
-			<form onSubmit={handleSubmit} style={styles.form}>
-				<input
-					type="text"
-					name="username"
-					placeholder="Kullanıcı Adı"
-					value={credentials.username}
-					onChange={handleInputChange}
-					style={styles.input}
-				/>
-				<input
-					type="password"
-					name="password"
-					placeholder="Şifre"
-					value={credentials.password}
-					onChange={handleInputChange}
-					style={styles.input}
-				/>
-				<button type="submit" style={styles.button} disabled={loading}>
-					{loading ? "Giriş Yapılıyor..." : "Giriş Yap"}
-				</button>
-			</form>
-			{error && <p style={styles.error}>{error}</p>}
-		</div>
+		<>
+			<TopHeader />
+			<Header />
+
+			<div style={styles.container}>
+				<h2>Admin girisi</h2>
+				<form onSubmit={handleSubmit} style={styles.form}>
+					<input
+						type="text"
+						name="username"
+						placeholder="Kullanıcı Adı"
+						value={credentials.username}
+						onChange={handleInputChange}
+						style={styles.input}
+					/>
+					<input
+						type="password"
+						name="password"
+						placeholder="Şifre"
+						value={credentials.password}
+						onChange={handleInputChange}
+						style={styles.input}
+					/>
+					<button type="submit" style={styles.button} disabled={loading}>
+						{loading ? "Giriş Yapılıyor..." : "Giriş Yap"}
+					</button>
+				</form>
+				{error && <p style={styles.error}>{error}</p>}
+			</div>
+		</>
 	);
 };
 

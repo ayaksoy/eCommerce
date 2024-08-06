@@ -24,6 +24,9 @@ export default function TopHeader() {
 							<Link to="/cart" className="ml-5">
 								<i className="fa fa-cart-plus"></i>
 							</Link>
+							<Link to="/OrderTracking"className="ml-3">
+								Siparis Takip
+							</Link>
 						</div>
 					</div>
 				</div>

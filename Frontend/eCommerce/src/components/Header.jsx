@@ -35,6 +35,9 @@ export default function Header() {
 							<Link to="/cart" className="nav-item nav-link">
 								Sepet
 							</Link>
+							<Link to="/OrderTracking" className="nav-item nav-link">
+								Siparis Takip
+							</Link>
 						</div>
 					</div>
 				</nav>
