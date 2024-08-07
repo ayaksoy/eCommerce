@@ -29,12 +29,10 @@ export default function Cart() {
 		};
 
 		try {
-			// Siparişi oluştur
 			const actionResult = await dispatch(createOrder(newOrder));
 			const orderId = actionResult.payload.id;
 
 			if (orderId) {
-				// OrderItem'ları oluştur
 				cart.forEach((item) => {
 					const newOrderItem = {
 						orderId,
@@ -44,17 +42,14 @@ export default function Cart() {
 					dispatch(createOrderItem(newOrderItem));
 				});
 
-				// Sipariş başarılı olduğunda
 				Swal.fire({
 					icon: "success",
 					title: "Başarılı!",
 					text: `Siparişiniz başarıyla alındı. Takip numaranız: TRxTRCK${orderId}`,
 				});
 
-				// Sepeti sıfırla
 				dispatch({ type: "product/clearCart" });
 
-				// Form alanlarını temizle
 				setCustomerFullName("");
 				setAddress("");
 				setPhoneNumber("");
